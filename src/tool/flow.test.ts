@@ -20,7 +20,7 @@ function ctx(over: Params = {}): RunContext {
     readText: async (p) => new TextDecoder().decode(files.get(p)!),
     writeFile: async (p, d) => void files.set(p, d),
     writeText: async (p, t) => void files.set(p, enc(t)),
-    mkdir: async () => {}, join: async (...p) => p.join('/'), llm: async () => '', sidecar: async () => '',
+    mkdir: async () => {}, join: async (...p) => p.join('/'), llm: async () => '', sidecar: async () => '', ffmpeg: async () => {}, duration: async () => 0,
   };
 }
 const item = (name: string): InputItem => ({ id: name, name, path: `/素材/${name}`, size: 1 });
