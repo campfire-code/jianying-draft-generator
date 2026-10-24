@@ -1,0 +1,42 @@
+/* 草稿卡片与空状态：颜色全部取外壳令牌，亮暗色自动跟随 */
+.L-f .k-cards { grid-template-columns: repeat(auto-fill, minmax(236px, 1fr)); }
+.L-f .k-card-body { padding: 0; }
+.jd-card { display: grid; gap: 8px; padding: 12px 12px 8px; background: linear-gradient(180deg, var(--primary-soft), transparent 70%); }
+.jd-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; }
+.jd-frame { height: 64px; max-width: 110px; display: grid; place-items: center; overflow: hidden; background: var(--chip); color: var(--muted); border: 1px solid var(--line-strong); border-radius: 6px; }
+.jd-frame img { width: 100%; height: 100%; object-fit: cover; }
+.jd-time { display: flex; align-items: baseline; gap: 3px; color: var(--primary); }
+.jd-time b { font-size: 34px; line-height: 1; font-weight: 700; letter-spacing: -.02em; }
+.jd-time small { font-size: 13px; color: var(--muted); }
+.jd-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; color: var(--muted); font-size: 13px; }
+.jd-badge { padding: 1px 8px; border-radius: var(--radius-pill); background: var(--primary); color: var(--on-primary); font-size: 13px; }
+.jd-tracks { display: grid; gap: 4px; padding: 6px; border-radius: 8px; background: var(--surface); border: 1px solid var(--line); color: var(--muted); }
+.jd-track { display: flex; align-items: center; gap: 6px; }
+.jd-lane { position: relative; flex: 1; height: 10px; border-radius: 5px; background: var(--chip); overflow: hidden; }
+.jd-clip, .jd-cue { position: absolute; top: 0; bottom: 0; border-radius: 5px; transition: width .2s var(--ease); }
+.jd-clip { background: var(--primary); }
+.jd-cue { background: var(--warn); border-radius: 2px; top: 2px; bottom: 2px; box-shadow: 1px 0 0 var(--surface); }
+.jd-foot { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink); min-width: 0; }
+.jd-foot b { color: var(--primary); font-weight: 600; flex: none; }
+.jd-foot > span:first-of-type { min-width: 0; }
+.jd-n { margin-left: auto; flex: none; color: var(--muted); }
+.jd-plain { font-size: 13px; color: var(--muted); }
+
+.jd-empty { display: grid; justify-items: center; gap: 10px; padding: 24px 28px; text-align: center; max-width: 640px; margin: 0 auto; }
+.jd-empty h2 { margin: 6px 0 0; font-size: 20px; font-weight: 700; }
+.jd-empty p { margin: 0; max-width: 480px; color: var(--muted); line-height: 1.7; font-size: 14px; }
+.jd-art { width: min(100%, 520px); height: auto; }
+.jd-art .s-a { fill: var(--primary); }
+.jd-art .s-a2 { fill: var(--on-primary); opacity: .7; }
+.jd-art .s-b { fill: var(--primary); opacity: .6; }
+.jd-art .s-c { fill: var(--primary); opacity: .32; }
+.jd-art .s-board { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.5; }
+.jd-art .s-cue { fill: var(--warn); }
+.jd-art .s-bgm { fill: var(--ok); opacity: .75; }
+.jd-art .s-arrow path { fill: none; stroke: var(--muted); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.jd-art .t-s { fill: var(--muted); font-size: 13px; font-family: var(--font); }
+.jd-points { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 4px 0 0; padding: 0; list-style: none; }
+.jd-points li { display: flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 12px; border-radius: var(--radius-pill); background: var(--chip); color: var(--ink); font-size: 13px; }
+.jd-points svg { color: var(--primary); }
+.jd-empty.hover .jd-art { transform: scale(1.03); }
+.jd-art { transition: transform .2s var(--ease); }

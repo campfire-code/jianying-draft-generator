@@ -2,12 +2,13 @@
   "id": "c04",
   "slug": "jianying-draft-generator",
   "name": "剪映草稿批量生成器",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "repo": "campfire-code/jianying-draft-generator",
   "license": "MIT",
   "ui": {
-    "layout": "d",
-    "palette": "teal"
+    "layout": "f",
+    "palette": "teal",
+    "accent": "#4B15C1"
   },
   "upstream": {
     "repo": "GuanYixuan/pyJianYingDraft",

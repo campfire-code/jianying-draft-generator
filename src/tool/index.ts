@@ -7,6 +7,7 @@ import {
 } from './core';
 import { buildDraft } from './draft';
 import { probeAudio, probeVisual } from './media';
+import { Empty, ResultBody } from './view';
 
 const nameOf = (p: string) => p.replace(/^.*[\\/]/, '');
 
@@ -109,7 +110,9 @@ const tool: BatchTool = {
   category: '内容生产',
   type: 'media',
   mode: 'batch',
-  resultView: 'list',
+  resultView: 'cards',
+  Empty,
+  ResultBody,
   concurrency: 1,
   accept: { label: '视频或图片', extensions: [...VIDEO_EXT, ...IMAGE_EXT] },
   params: [
@@ -119,7 +122,7 @@ const tool: BatchTool = {
     { key: 'fill', label: '比例不同时的背景', type: 'segment', options: [['blur', '模糊背景'], ['none', '黑边']], default: 'blur' },
     { key: 'imageSeconds', label: '每张图片停留', type: 'number', default: 3, min: 0.5, max: 600, step: 0.5, unit: '秒' },
     { key: 'keepSound', label: '保留视频原声', type: 'toggle', default: true },
-    { key: 'bgm', label: '背景音乐', type: 'file', extensions: AUDIO_EXT, fileLabel: '音频（mp3 / wav）', default: '', help: '不选就不加；每个草稿都会铺上这首' },
+    { key: 'bgm', label: '背景音乐', type: 'file', extensions: AUDIO_EXT, fileLabel: '音频（MP3 / WAV）', default: '', help: '不选就不加；每个草稿都会铺上这首' },
     { key: 'bgmVolume', label: '背景音乐音量', type: 'number', default: 60, min: 0, max: 100, unit: '%', when: (p) => Boolean(p.bgm) },
     { key: 'bgmFade', label: '淡入淡出', type: 'number', default: 1, min: 0, max: 10, step: 0.5, unit: '秒', when: (p) => Boolean(p.bgm) },
     { key: 'bgmLoop', label: '音乐不够长时循环', type: 'toggle', default: true, when: (p) => Boolean(p.bgm) },
@@ -127,7 +130,7 @@ const tool: BatchTool = {
     { key: 'srt', label: '整段字幕（SRT）', type: 'file', extensions: ['srt'], fileLabel: 'SRT 字幕', default: '', when: (p) => p.mode === 'all', help: '可选：按整个草稿的时间轴对齐，放在单独一条字幕轨' },
     { key: 'subtitleSize', label: '字幕字号', type: 'number', default: 5, min: 1, max: 30, when: (p) => Boolean(p.autoSubs) || Boolean(p.srt) },
     { key: 'prefix', label: '草稿名', type: 'text', default: '', placeholder: '留空用素材文件名', help: '逐个生成时作前缀；拼接时作草稿名，默认「批量草稿」' },
-    { key: 'root', label: '剪映草稿文件夹', type: 'folder', default: '', help: '在剪映「全局设置 → 草稿位置」查看，一般以 JianyingPro Drafts 结尾' },
+    { key: 'root', label: '剪映草稿文件夹', type: 'folder', default: '', help: '在剪映「全局设置 → 草稿位置」查看，选中那个文件夹即可' },
   ],
 
   async run(item: InputItem, ctx: RunContext): Promise<ItemResult> {

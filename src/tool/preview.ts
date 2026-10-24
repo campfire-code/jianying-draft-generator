@@ -18,8 +18,15 @@ const list: [string, number, Row['status'], string?, string?][] = [
   ['示例图片-03.jpg', 940_000, 'ok', '草稿「示例图片-03」 · 图片 · 3 秒 · 1080×1920'],
   ['示例片段-04.mov', 31_000_000, 'run'],
   ['示例片段-05.mp4', 12_900_000, 'wait'],
-  ['示例片段-06.avi', 8_000_000, 'err', undefined, '只支持 mp4、mov 视频和 jpg、png 图片'],
+  ['示例照片-06.heic', 8_000_000, 'err', undefined, '只支持 mp4、mov 视频和 jpg、png 图片'],
 ];
+
+const US = 1_000_000;
+const demo = (name: string, i: number) => {
+  const dur = [12.4, 9.8, 0, 15.2, 8, 0][i] ?? 8;
+  const subs = i === 0 ? [[0.5, 3], [4, 3.5], [8.2, 3.6]].map(([a, d]) => ({ start: a * US, duration: d * US, text: '示例字幕' })) : i === 3 ? [[1, 4], [6, 4], [11, 3.5]].map(([a, d]) => ({ start: a * US, duration: d * US, text: '示例字幕' })) : undefined;
+  return { path: `/示例/${name}`, name, kind: /图片/.test(name) ? 'photo' : 'video', duration: dur * US, width: 1080, height: i === 1 ? 1080 : 1920, subs };
+};
 
 export const rows = (state: string): Row[] =>
   state === 'empty' ? [] : list.map(([name, size, status, summary, error], i) => {
@@ -29,8 +36,10 @@ export const rows = (state: string): Row[] =>
       status: st,
       progress: st === 'run' ? 0.5 : st === 'ok' ? 1 : 0,
       error: st === 'err' ? error : undefined,
-      result: st === 'ok' ? { summary: summary ?? '草稿「示例」 · 视频 · 8 秒 · 1080×1920', outputPath: '/示例/JianyingPro Drafts', preview: thumb(20 + i * 50) } : undefined,
+      result: st === 'ok' ? { summary: summary ?? '草稿「示例」 · 视频 · 8 秒 · 1080×1920', outputPath: `/示例/剪映草稿/${name.replace(/\.[^.]+$/, '')}`, preview: thumb(20 + i * 50), data: demo(name, i) } : undefined,
     };
   });
 
-export const params = { mode: 'each', canvas: '1080x1920', root: '/示例/JianyingPro Drafts' };
+export const params = { mode: 'each', canvas: '1080x1920', root: '/示例/剪映草稿' };
+
+export const notice = { kind: 'ok' as const, text: '已生成 5 个草稿到「/示例/剪映草稿」，打开剪映即可看到；列表里没出现就重启一下剪映' };
